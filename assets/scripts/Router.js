@@ -85,7 +85,7 @@ export class Router {
       var stateObject = { 'page': page };
       history.pushState(stateObject, '', curPage);
     }
-    console.log(page);
+
     this[page]();
 
   }
