@@ -38,8 +38,8 @@ export class Router {
      * router instance using the 'this' keyword. Substitute 'home' for the variable
      * page
      */
-    this['home'] = page;
-    this['pageFunc'] = pageFunc;
+
+    this[page] = pageFunc;
   }
 
   /**
@@ -67,5 +67,7 @@ export class Router {
      *     and URL + hash to history
      *  4. Finally, call the stored function for the given page
      */
+
+
   }
 }
