@@ -57,6 +57,15 @@ function initializeServiceWorker() {
    *  TODO - Part 2 Step 1
    *  Initialize the service worker set up in sw.js
    */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker
+        .register('../sw.js')
+        .then(reg => console.log('service worker registered'))
+        .catch(err => console.error(`Service Worker: Error: ${error}`));
+    })
+
+  }
 }
 
 /**
@@ -192,6 +201,13 @@ function bindEscKey() {
    * if the escape key is pressed, use your router to navigate() to the 'home'
    * page. This will let us go back to the home page from the detailed page.
    */
+  document.addEventListener('keydown', escKeyEvent);
+  function escKeyEvent(e) {
+    if (e.code == 'Escape') {
+      router.navigate('home');
+    }
+  }
+
 }
 
 /**
@@ -213,4 +229,7 @@ function bindPopstate() {
    * so your navigate() function does not add your going back action to the history,
    * creating an infinite loop
    */
+  window.addEventListener('popstate', function (e) {
+    router.navigate(e.state.page, true);
+  })
 }

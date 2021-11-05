@@ -9,6 +9,7 @@ self.addEventListener('install', function (event) {
    * TODO - Part 2 Step 2
    * Create a function as outlined above
    */
+  console.log();
 });
 
 /**
@@ -29,4 +30,8 @@ self.addEventListener('fetch', function (event) {
    * TODO - Part 2 Step 4
    * Create a function as outlined above
    */
+  // event.respondWith(
+  //   fetch(event.request)
+  //   .then 
+  // )
 });

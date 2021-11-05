@@ -39,7 +39,9 @@ export class Router {
      * page
      */
 
+
     this[page] = pageFunc;
+
   }
 
   /**
@@ -67,7 +69,24 @@ export class Router {
      *     and URL + hash to history
      *  4. Finally, call the stored function for the given page
      */
+    if (this[page] == null) {
+      console.error('pageFunc is null');
+      return;
+    }
 
+    if (page == '') {
+      var hash = '';
+    } else {
+      var hash = '#' + page;
+    }
+    var curPage = window.location.origin + hash;
+
+    if ((statePopped == undefined || statePopped == false) && window.location.hash != hash) {
+      var stateObject = { 'page': page };
+      history.pushState(stateObject, '', curPage);
+    }
+    console.log(page);
+    this[page]();
 
   }
 }
