@@ -1,6 +1,6 @@
 // main.js
 
-import { Router } from './router.js';
+import { Router } from './Router.js';
 
 const recipes = [
   'https://introweb.tech/assets/json/ghostCookies.json',
@@ -25,6 +25,8 @@ const router = new Router(function () {
    * This will only be two single lines
    * If you did this right, you should see the recipe cards just like last lab
    */
+  document.querySelector('.section--recipe-cards').classList.add('shown');
+  document.querySelector('.section--recipe-expand').classList.remove('shown');
 });
 
 window.addEventListener('DOMContentLoaded', init);
@@ -100,7 +102,8 @@ function createRecipeCards() {
   // for that ghostCookies URL since it's a key in the recipeData object, and
   // then we'll grab the 'page-name' from it - in this case it will be 'ghostCookies'
   const page = recipeData[recipes[0]]['page-name'];
-  router.addPage(page, function() {
+
+  router.addPage(page, function () {
     document.querySelector('.section--recipe-cards').classList.remove('shown');
     document.querySelector('.section--recipe-expand').classList.add('shown');
     document.querySelector('recipe-expand').data = recipeData[recipes[0]];
@@ -117,6 +120,20 @@ function createRecipeCards() {
    * all the recipes. (bonus - add the class 'hidden' to every recipe card with 
    * an index greater  than 2 in your for loop to make show more button functional)
    */
+  console.log(recipeData.length);
+  for (let i = 0; i < recipeData.length; i++) {
+    recipeCard.data = recipeData[recipes[i]];
+    const page = recipeData[recipes[i]]['page-name'];
+    router.addPage(page, function () {
+      document.querySelector('.section--recipe-cards').classList.remove('shown');
+      document.querySelector('.section--recipe-expand').classList.add('shown');
+      document.querySelector('recipe-expand').data = recipeData[recipes[i]];
+    });
+    bindRecipeCard(recipeCard, page);
+
+    document.querySelector('.recipe-cards--wrapper').appendChild(recipeCard);
+  }
+
 }
 
 /**
