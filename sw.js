@@ -10,21 +10,13 @@ self.addEventListener('install', function (event) {
    * Create a function as outlined above
    */
   var urlsToCache = [
-    '/index.html',
-    '/.vscode/settings.json',
-    '/assets/RecipeCard.js',
-    '/images/icons/0-star.svg',
-    '/images/icons/1-star.svg',
-    '/images/icons/2-star.svg',
-    '/images/icons/3-star.svg',
-    '/images/icons/4-star.svg',
-    '/images/icons/5-star.svg',
-    '/images/icons/arrow-down.png',
-    '/script/main.js',
-    '/script/Router.js',
-    '/styles/main.css',
-    '/favicon.ico'
 
+    'https://introweb.tech/assets/json/ghostCookies.json',
+    'https://introweb.tech/assets/json/birthdayCake.json',
+    'https://introweb.tech/assets/json/chocolateChip.json',
+    'https://introweb.tech/assets/json/stuffing.json',
+    'https://introweb.tech/assets/json/turkey.json',
+    'https://introweb.tech/assets/json/pumpkinPie.json'
   ];
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -45,19 +37,7 @@ self.addEventListener('activate', function (event) {
    * TODO - Part 2 Step 3
    * Create a function as outlined above, it should be one line
    */
-  var cacheAllowlist = ['pages-cache-v1', 'blog-posts-cache-v1'];
-
-  event.waitUntil(
-    caches.keys().then(function (cacheNames) {
-      return Promise.all(
-        cacheNames.map(function (cacheName) {
-          if (cacheAllowlist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
+  event.waitUntil(clients.claim());
 });
 
 // Intercept fetch requests and store them in the cache
@@ -66,10 +46,7 @@ self.addEventListener('fetch', function (event) {
    * TODO - Part 2 Step 4
    * Create a function as outlined above
    */
-  // event.respondWith(
-  //   fetch(event.request)
-  //   .then 
-  // )
+
   event.respondWith(
     caches.match(event.request)
       .then(function (response) {
